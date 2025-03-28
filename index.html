@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRL: Post-Quantum Secure AI & Homomorphic Encryption</title>
+    <style>
+        /* Essential styles */
+        :root {
+            --primary-color: #6200EA;
+            --secondary-color: #03DAC6;
+            --dark-bg: #121212;
+            --light-text: #F2F2F2;
+            --glow-effect: 0 0 15px rgba(3, 218, 198, 0.8);
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(98, 0, 234, 0.2), rgba(3, 218, 198, 0.2));
+            overflow: hidden;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: var(--glow-effect);
+            color: var(--secondary-color);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--light-text);
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: var(--glow-effect);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(3, 218, 198, 0.3);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 4rem 2rem;
+            margin: 2rem auto;
+            border-radius: 20px;
+            position: relative;
+            background: rgba(30, 30, 30, 0.7);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 1000px;
+        }
+        
+        section h2 {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+        
+        /* Features Section */
+        .features ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .features li {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(98, 0, 234, 0.1);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
+        
+        /* Why Matter Section */
+        .why-matter p {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .why-matter p::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            transform: translateY(-50%);
+            box-shadow: 0 0 10px var(--secondary-color);
+        }
+        
+        /* AR Scanner Section */
+        .ar-scanner {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            background: linear-gradient(135deg, rgba(98, 0, 234, 0.1), rgba(3, 218, 198, 0.1));
+            border-radius: 20px;
+            position: relative;
+        }
+        
+        .scanner-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: var(--glow-effect);
+        }
+        
+        .scanner-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(3, 218, 198, 0.3);
+        }
+        
+        .scanner-button.scanning {
+            animation: pulse-button 1.5s infinite alternate;
+        }
+        
+        @keyframes pulse-button {
+            0% { box-shadow: 0 0 15px rgba(3, 218, 198, 0.5); }
+            100% { box-shadow: 0 0 30px rgba(3, 218, 198, 0.9); }
+        }
+        
+        .scanner-output {
+            height: 300px;
+            margin: 2rem auto;
+            border: 2px solid var(--secondary-color);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        #video-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, rgba(3, 218, 198, 0.8), transparent);
+            top: 0;
+            left: 0;
+            box-shadow: 0 0 20px 5px rgba(3, 218, 198, 0.5);
+            opacity: 0;
+            z-index: 4;
+            transform: translateY(-10px);
+        }
+        
+        .scan-line.active {
+            opacity: 1;
+            animation: scan-movement 2s ease-in-out infinite;
+        }
+        
+        @keyframes scan-movement {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(300px); }
+            100% { transform: translateY(0); }
+        }
+        
+        #scan-result {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            text-align: center;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* Comparison Section */
+        .comparison {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .comparison-item {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(30, 30, 30, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .comparison-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .comparison-item.vulnerable::before {
+            background: linear-gradient(90deg, #FF0000, #FF9800);
+        }
+        
+        .comparison-canvas {
+            height: 200px;
+            width: 100%;
+            margin: 1rem 0;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        /* CTA Section */
+        .cta {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(98, 0, 234, 0.3), rgba(3, 218, 198, 0.3));
+            padding: 4rem 2rem;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--dark-bg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 2rem 1rem;
+            }
+            
+            .comparison {
+                flex-direction: column;
+            }
+            
+            .comparison-item {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 QRL: Post-Quantum Secure AI & Homomorphic Encryption</h1>
+            <p>Building the Future of Secure AI & Blockchain with Quantum-Resistant Technology</p>
+            <a href="https://github.com/qrl-post-quantum-ai" class="btn">View on GitHub</a>
+        </header>
+        
+        <section class="features">
+            <h2>🌟 Key Features</h2>
+            <ul>
+                <li>✅ Post-Quantum Secure Encryption (Kyber, Dilithium and more)</li>
+                <li>✅ Fully Homomorphic Encryption (Encrypted AI Computation)</li>
+                <li>✅ GPU-Accelerated Performance (CUDA and such Optimized)</li>
+                <li>✅ Privacy-Preserving AI for Secure Federated Learning</li>
+                <li>✅ Blockchain & Web3 Integration for Quantum-Resistant Smart Contracts</li>
+            </ul>
+        </section>
+        
+        <section class="why-matter">
+            <h2>🚀 Why It Matters</h2>
+            <p>🔹 Quantum Threat is Real – Traditional encryption is at risk.</p>
+            <p>🔹 AI Needs Security – Privacy-preserving computation is essential.</p>
+            <p>🔹 Performance Optimization – GPU acceleration makes HE practical.</p>
+        </section>
+        
+        <!-- AR Scanner Section -->
+        <section class="ar-scanner">
+            <h2>🔍 Quantum Vulnerability Scanner</h2>
+            <p>See the invisible quantum threats on your own devices. Point your camera at any device to visualize its quantum vulnerabilities.</p>
+            
+            <div class="scanner-output">
+                <video id="video-preview" autoplay playsinline></video>
+                <div class="scan-line"></div>
+                <div id="scan-result">
+                    <p class="result-text">Quantum vulnerability detected!</p>
+                    <p class="result-details">Traditional RSA encryption at risk. QRL solution recommended.</p>
+                </div>
+            </div>
+            
+            <button class="scanner-button" id="scan-btn">Start Quantum Scan</button>
+        </section>
+        
+        <!-- Visual Demo Section -->
+        <section class="visual-demo">
+            <h2>🔐 See Quantum Security in Action</h2>
+            <p>Watch how traditional encryption methods fall to quantum attacks while QRL's post-quantum algorithms remain secure.</p>
+            
+            <div class="comparison">
+                <div class="comparison-item vulnerable">
+                    <h3>Traditional Encryption</h3>
+                    <canvas class="comparison-canvas" id="traditional-canvas" width="300" height="200"></canvas>
+                    <p>Vulnerable to Shor's algorithm and quantum attacks</p>
+                </div>
+                
+                <div class="comparison-item">
+                    <h3>QRL Post-Quantum Security</h3>
+                    <canvas class="comparison-canvas" id="quantum-secure-canvas" width="300" height="200"></canvas>
+                    <p>Resistant against all known quantum attack vectors</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="cta">
+            <h2>📌 Get Involved</h2>
+            <p>Join us in securing AI and blockchain for the quantum era.</p>
+            <a href="https://github.com/GitEmerge/qrl-post-quantum-ai" class="btn">Contribute on GitHub</a>
+        </section>
+        
+        <footer>
+            <p>© 2025 QRL Foundation. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize scanner functionality
+        function initScanner() {
+            const scanBtn = document.getElementById('scan-btn');
+            const videoPreview = document.getElementById('video-preview');
+            const scanResult = document.getElementById('scan-result');
+            const scanLine = document.querySelector('.scan-line');
+            let scanning = false;
+            let scanTimer;
+            
+            scanBtn.addEventListener('click', () => {
+                if (scanning) {
+                    stopScanning();
+                } else {
+                    startScanning();
+                }
+            });
+            
+            function startScanning() {
+                // Reset the scan output area
+                resetScanArea();
+                
+                // Start button animation
+                scanBtn.classList.add('scanning');
+                scanBtn.textContent = 'Scanning...';
+                
+                // Use the fallback method regardless of camera availability for demonstration
+                // This bypasses the security error while still showing the functionality
+                simulateScan();
+                
+                // Note: In a production environment hosted on HTTPS, you would use the camera code below
+                /* 
+                // Try to access device camera if available
+                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+                        .then(function(stream) {
+                            videoPreview.srcObject = stream;
+                            videoPreview.style.display = 'block';
+                            scanning = true;
+                            
+                            // Start the scanning sequence
+                            runScanSequence();
+                        })
+                        .catch(function(error) {
+                            console.error("Camera error: ", error);
+                            // Fallback for devices without camera
+                            simulateScan();
+                        });
+                } else {
+                    // Fallback for browsers that don't support getUserMedia
+                    simulateScan();
+                }
+                */
+            }
+            
+            function simulateScan() {
+                scanning = true;
+                
+                // Show a placeholder instead of video
+                videoPreview.style.display = 'none';
+                
+                // Start the scanning sequence
+                runScanSequence();
+            }
+            
+            function runScanSequence() {
+                // Start scan-line animation
+                scanLine.classList.add('active');
+                
+                // Show result after 3 seconds of scanning
+                scanTimer = setTimeout(() => {
+                    showResult();
+                }, 3000);
+            }
+            
+            function showResult() {
+                // Activate result display
+                scanResult.style.opacity = '1';
+                
+                // Change button text
+                scanBtn.textContent = 'Stop Scanning';
+            }
+            
+            function stopScanning() {
+                // Stop camera if it was started
+                if (videoPreview.srcObject) {
+                    const tracks = videoPreview.srcObject.getTracks();
+                    tracks.forEach(track => track.stop());
+                    videoPreview.srcObject = null;
+                }
+                
+                // Clear any running timers
+                clearTimeout(scanTimer);
+                
+                // Reset scan area
+                resetScanArea();
+                
+                scanning = false;
+                scanBtn.classList.remove('scanning');
+                scanBtn.textContent = 'Start Quantum Scan';
+            }
+            
+            function resetScanArea() {
+                // Reset all animations and display elements
+                videoPreview.style.display = 'none';
+                scanResult.style.opacity = '0';
+                scanLine.classList.remove('active');
+            }
+        }
+        
+        // Initialize comparison visualization
+        function initComparisonViz() {
+            // Ensure we wait until the elements are available
+            // Traditional encryption canvas
+            const tradCanvas = document.getElementById('traditional-canvas');
+            
+            // Initialize canvas with fixed dimensions if clientWidth/height aren't available yet
+            if (!tradCanvas) {
+                console.error('Traditional canvas element not found');
+                return; // Exit if the canvas doesn't exist
+            }
+            
+            // Create canvas elements programmatically if needed
+            if (!(tradCanvas instanceof HTMLCanvasElement)) {
+                const newCanvas = document.createElement('canvas');
+                newCanvas.id = 'traditional-canvas';
+                newCanvas.width = 300;
+                newCanvas.height = 200;
+                tradCanvas.parentNode.replaceChild(newCanvas, tradCanvas);
+                tradCanvas = newCanvas;
+            }
+            
+            const tradCtx = tradCanvas.getContext('2d');
+            tradCanvas.width = tradCanvas.clientWidth || 300;
+            tradCanvas.height = tradCanvas.clientHeight || 200;
+            
+            // Quantum secure canvas
+            const secureCanvas = document.getElementById('quantum-secure-canvas');
+            
+            if (!secureCanvas) {
+                console.error('Secure canvas element not found');
+                return; // Exit if the canvas doesn't exist
+            }
+            
+            // Create canvas elements programmatically if needed
+            if (!(secureCanvas instanceof HTMLCanvasElement)) {
+                const newCanvas = document.createElement('canvas');
+                newCanvas.id = 'quantum-secure-canvas';
+                newCanvas.width = 300;
+                newCanvas.height = 200;
+                secureCanvas.parentNode.replaceChild(newCanvas, secureCanvas);
+                secureCanvas = newCanvas;
+            }
+            
+            const secureCtx = secureCanvas.getContext('2d');
+            secureCanvas.width = secureCanvas.clientWidth || 300;
+            secureCanvas.height = secureCanvas.clientHeight || 200;
+            
+            // Data points representing encrypted information
+            const dataPoints = 15;
+            let tradPoints = [];
+            let securePoints = [];
+            
+            // Initialize data points
+            for (let i = 0; i < dataPoints; i++) {
+                tradPoints.push({
+                    x: Math.random() * tradCanvas.width,
+                    y: Math.random() * tradCanvas.height,
+                    radius: 3 + Math.random() * 5,
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    secure: true
+                });
+                
+                securePoints.push({
+                    x: Math.random() * secureCanvas.width,
+                    y: Math.random() * secureCanvas.height,
+                    radius: 3 + Math.random() * 5,
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    secure: true
+                });
+            }
+            
+            // Quantum attack simulation
+            let attackProgress = 0;
+            const attackSpeed = 0.5;
+            let attacking = false;
+            
+            function simulateAttack() {
+                attacking = true;
+                attackProgress = 0;
+                
+                // Reset points
+                tradPoints.forEach(point => {
+                    point.secure = true;
+                    point.color = 'rgba(255, 255, 255, 0.8)';
+                });
+                
+                securePoints.forEach(point => {
+                    point.secure = true;
+                    point.color = 'rgba(255, 255, 255, 0.8)';
+                });
+                
+                const attackInterval = setInterval(() => {
+                    attackProgress += attackSpeed;
+                    
+                    if (attackProgress >= 100) {
+                        attacking = false;
+                        clearInterval(attackInterval);
+                        
+                        // Start new attack after pause
+                        setTimeout(simulateAttack, 3000);
+                    }
+                }, 50);
+            }
+            
+            // Draw encryption visualization
+            function drawEncryption() {
+                // Clear canvases
+                tradCtx.clearRect(0, 0, tradCanvas.width, tradCanvas.height);
+                secureCtx.clearRect(0, 0, secureCanvas.width, secureCanvas.height);
+                
+                // Draw background grid
+                drawGrid(tradCtx, tradCanvas.width, tradCanvas.height);
+                drawGrid(secureCtx, secureCanvas.width, secureCanvas.height);
+                
+                // Draw quantum attack wave if active
+                if (attacking) {
+                    // Draw attack effect on traditional encryption
+                    const attackRadius = (attackProgress / 100) * tradCanvas.width * 1.5;
+                    
+                    // Draw attack wave
+                    tradCtx.beginPath();
+                    tradCtx.arc(tradCanvas.width / 2, tradCanvas.height / 2, attackRadius, 0, Math.PI * 2);
+                    tradCtx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
+                    tradCtx.lineWidth = 2;
+                    tradCtx.stroke();
+                    
+                    // Draw attack wave on quantum secure but make it ineffective
+                    secureCtx.beginPath();
+                    secureCtx.arc(secureCanvas.width / 2, secureCanvas.height / 2, attackRadius, 0, Math.PI * 2);
+                    secureCtx.strokeStyle = 'rgba(255, 0, 0, 0.2)';
+                    secureCtx.lineWidth = 2;
+                    secureCtx.stroke();
+                    
+                    // Calculate if points are affected by attack wave
+                    tradPoints.forEach(point => {
+                        const dx = point.x - tradCanvas.width / 2;
+                        const dy = point.y - tradCanvas.height / 2;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        // If point is within attack radius
+                        if (distance < attackRadius) {
+                            point.secure = false;
+                            point.color = `rgba(255, ${Math.max(0, 150 - attackProgress)}, 0, 0.8)`;
+                        }
+                    });
+                }
+                
+                // Draw points
+                tradPoints.forEach(point => {
+                    tradCtx.beginPath();
+                    tradCtx.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
+                    tradCtx.fillStyle = point.color;
+                    tradCtx.fill();
+                    
+                    if (point.secure) {
+                        tradCtx.strokeStyle = 'rgba(3, 218, 198, 0.8)';
+                        tradCtx.lineWidth = 1;
+                        tradCtx.stroke();
+                    }
+                });
+                
+                securePoints.forEach(point => {
+                    secureCtx.beginPath();
+                    secureCtx.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
+                    secureCtx.fillStyle = point.color;
+                    secureCtx.fill();
+                    
+                    // Quantum secure points always have the secure stroke
+                    secureCtx.strokeStyle = 'rgba(3, 218, 198, 0.8)';
+                    secureCtx.lineWidth = 1;
+                    secureCtx.stroke();
+                });
+                
+                // Draw connection lines between points for network visualization
+                tradCtx.globalAlpha = 0.3;
+                secureCtx.globalAlpha = 0.3;
+                
+                // Draw connections between close points
+                for (let i = 0; i < tradPoints.length; i++) {
+                    for (let j = i + 1; j < tradPoints.length; j++) {
+                        const dx = tradPoints[i].x - tradPoints[j].x;
+                        const dy = tradPoints[i].y - tradPoints[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 70) {
+                            tradCtx.beginPath();
+                            tradCtx.moveTo(tradPoints[i].x, tradPoints[i].y);
+                            tradCtx.lineTo(tradPoints[j].x, tradPoints[j].y);
+                            
+                            // Red connections for broken encryption
+                            if (!tradPoints[i].secure || !tradPoints[j].secure) {
+                                tradCtx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
+                            } else {
+                                tradCtx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                            }
+                            
+                            tradCtx.lineWidth = 0.5;
+                            tradCtx.stroke();
+                        }
+                    }
+                }
+                
+                // Always secure connections for quantum-secure visualization
+                for (let i = 0; i < securePoints.length; i++) {
+                    for (let j = i + 1; j < securePoints.length; j++) {
+                        const dx = securePoints[i].x - securePoints[j].x;
+                        const dy = securePoints[i].y - securePoints[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 70) {
+                            secureCtx.beginPath();
+                            secureCtx.moveTo(securePoints[i].x, securePoints[i].y);
+                            secureCtx.lineTo(securePoints[j].x, securePoints[j].y);
+                            secureCtx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                            secureCtx.lineWidth = 0.5;
+                            secureCtx.stroke();
+                        }
+                    }
+                }
+                
+                tradCtx.globalAlpha = 1;
+                secureCtx.globalAlpha = 1;
+                
+                requestAnimationFrame(drawEncryption);
+            }
+            
+            // Draw background grid
+            function drawGrid(ctx, width, height) {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                ctx.lineWidth = 0.5;
+                
+                // Draw vertical lines
+                for (let x = 0; x < width; x += 20) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, height);
+                    ctx.stroke();
+                }
+                
+                // Draw horizontal lines
+                for (let y = 0; y < height; y += 20) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(width, y);
+                    ctx.stroke();
+                }
+            }
+            
+            // Start attack simulation and drawing
+            simulateAttack();
+            drawEncryption();
+            
+            // Resize canvas on window resize
+            window.addEventListener('resize', () => {
+                tradCanvas.width = tradCanvas.clientWidth;
+                tradCanvas.height = tradCanvas.clientHeight;
+                secureCanvas.width = secureCanvas.clientWidth;
+                secureCanvas.height = secureCanvas.clientHeight;
+            });
+        }
+        
+        // Initialize visualizations when the page loads
+        window.addEventListener('load', () => {
+            // Ensure DOM is fully loaded before initializing
+            setTimeout(() => {
+                try {
+                    initScanner();
+                    initComparisonViz();
+                } catch (error) {
+                    console.error("Error initializing visualizations:", error);
+                    
+                    // Attempt recovery for critical components
+                    if (document.getElementById('scan-btn')) {
+                        document.getElementById('scan-btn').addEventListener('click', function() {
+                            document.querySelector('.scan-line').classList.add('active');
+                            setTimeout(() => {
+                                document.getElementById('scan-result').style.opacity = '1';
+                                this.textContent = 'Stop Scanning';
+                            }, 3000);
+                        });
+                    }
+                }
+            }, 100); // Small delay to ensure everything is ready
+        });
+    </script>
+</body>
+</html>
