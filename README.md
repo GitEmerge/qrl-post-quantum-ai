@@ -6,7 +6,7 @@
 This open-source initiative by the **QRL Foundation** is focused on developing **post-quantum secure, GPU-accelerated homomorphic encryption (HE)** and **Zero-Knowledge Proofs (ZKP)** to power **privacy-preserving AI agents** and **quantum-resistant applications**.  
 
 ## **🛠 Key Features**  
-✅ **Post-Quantum Secure Encryption** – Leveraging NIST-approved PQC algorithms (Kyber, Dilithium, NTRU).  
+✅ **Post-Quantum Secure Encryption** – Leveraging NIST-approved PQC algorithms.  
 ✅ **Fully Homomorphic Encryption (FHE)** – Enabling encrypted AI computation without decryption.  
 ✅ **GPU Acceleration** – Optimized HE and ZKP performance using CUDA and others.  
 ✅ **Zero-Knowledge Proofs (ZKP)** – Privacy-enhancing cryptographic proofs without revealing sensitive data.  
