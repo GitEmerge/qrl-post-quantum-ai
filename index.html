@@ -792,5 +792,16 @@
             }, 100); // Small delay to ensure everything is ready
         });
     </script>
+    <script>
+        // Load benchmark.html and append it to the page
+        fetch('benchmark.html')
+            .then(response => response.text())
+            .then(html => {
+                const wrapper = document.createElement('div');
+                wrapper.innerHTML = html;
+                document.body.appendChild(wrapper);
+            })
+            .catch(error => console.error('Error loading benchmark.html:', error));
+    </script>
 </body>
 </html>
