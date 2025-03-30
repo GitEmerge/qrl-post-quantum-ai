@@ -792,16 +792,22 @@
             }, 100); // Small delay to ensure everything is ready
         });
     </script>
+    <iframe id="benchmark-frame" src="benchmark.html" style="width:100%; border:none; margin-top:2rem;"></iframe>
     <script>
-        // Load benchmark.html and append it to the page
-        fetch('benchmark.html')
-            .then(response => response.text())
-            .then(html => {
-                const wrapper = document.createElement('div');
-                wrapper.innerHTML = html;
-                document.body.appendChild(wrapper);
-            })
-            .catch(error => console.error('Error loading benchmark.html:', error));
+        const iframe = document.getElementById('benchmark-frame');
+        iframe.addEventListener('load', () => {
+            const adjustHeight = () => {
+                try {
+                    iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+                } catch (e) {
+                    console.warn('Could not auto-resize iframe (likely cross-origin).');
+                }
+            };
+            adjustHeight();
+    
+            // Optional: keep checking for dynamic content
+            setInterval(adjustHeight, 1000);
+        });
     </script>
 </body>
 </html>
